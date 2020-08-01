@@ -19,11 +19,11 @@
     }
 
     .arrow {
-        margin-left: 5px;
-        border: solid black;
-        border-width: 0 3px 3px 0;
+        // margin-left: 5px;
+        border: solid #333;
+        border-width: 0 2px 2px 0;
         display: inline-block;
-        padding: 3px;
+        padding: 2px;
 
         &.down {
             transform: rotate(-135deg);
@@ -61,7 +61,7 @@
         left: 0;
         top: 100%;
 
-        border: 1px solid #ccc;
+        border: 1px solid #d2d2d7;
         border-radius: 4px;
         padding: 0;
         margin: 2px 0 0 0;
@@ -74,15 +74,19 @@
 
         ul {
             margin: 0px;
-            padding: 10px;
+            padding: 0px;
 
             li {
-                margin: 0px;
-                padding: 0px;
                 list-style: none;
                 position: absolute;
                 width: 100%;
+                left: 0px;
+
+                .li-inner {
+                    padding: 5px;
+                }
             }
+
 
         }
     }

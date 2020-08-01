@@ -13,13 +13,12 @@ import './style.scss';
 
 const AsyncDataChooser = (props) => {
 	let testDivRef = useRef(null);
-	let abRef = useRef(null);
+	let containerRef = useRef(null);
 	const [show, setShow] = useState(false);
 	const [hieghtCalculated, setHieghtCalculated] = useState(false);
 	const [data, setData] = useState([]);
 	const [itemHeight, setItemHeight] = useState(100);
 	const [scrollTop, setScrollTop] = useState(0);
-	const [testSlice, setTestSlice] = useState(null);
 	const numItems = data.length;
 	const windowHeight = 500;
 	useEffect(() => {
@@ -50,6 +49,17 @@ const AsyncDataChooser = (props) => {
 			setHieghtCalculated(true)
 		}
 	}, [renderTest])
+	const handleClickOutside = (event) => {
+		if (containerRef.current && !containerRef.current.contains(event.target)) {
+			setShow(false)
+		}
+	}
+	useEffect(() => {
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, []);
 	const onScroll = e => setScrollTop(e.currentTarget.scrollTop);
 	const onClick = useCallback((e) => {
 		setShow(false);
@@ -60,7 +70,7 @@ const AsyncDataChooser = (props) => {
 	return (
 		<div
 			style={props.style}
-			ref={abRef}
+			ref={containerRef}
 			className={`ac-dropdown ${props.className ? props.className : ``}`} >
 			<div
 				role="button"
@@ -83,7 +93,7 @@ const AsyncDataChooser = (props) => {
 							datavalue={startIndex + index}
 							onClick={onClick}
 						>
-							{props.itemRender(item)}</li>)
+							<div className="li-inner">{props.itemRender(item)}</div></li>)
 					}
 
 				</ul>
