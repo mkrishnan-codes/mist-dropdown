@@ -12,6 +12,7 @@ const List = forwardRef((props, ref) => {
 		setPos(e.currentTarget.scrollTop)
 		props.onScroll(e);
 	}, []);
+	
 	return props.show && (
 		<div
 			className="dropdown"
