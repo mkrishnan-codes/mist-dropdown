@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
+import List from './List';
 // const dataReducer = (state, action) => {
 // 	switch (action.type) {
 // 		case 'ADD':
@@ -69,7 +70,7 @@ const AsyncDataChooser = (props) => {
 			props.onSelect(data[e.currentTarget.getAttribute('datavalue')])
 		}
 	})
-	
+
 	return (
 		<div
 			style={props.style}
@@ -84,24 +85,18 @@ const AsyncDataChooser = (props) => {
 				<div className="truncated">{props.label}</div>
 				<div className={`arrow ${show ? `down` : 'up'}`}></div>
 			</div>
-			{show && <div
-				className="dropdown"
-				style={{ maxHeight: 500 }}
+			<List show={show}
+				items={items}
+				innerHeight={innerHeight}
+				startIndex={startIndex}
+				onScroll={onScroll}
+				onClick={onClick}
 				ref={ulContainerRef}
-				onScroll={onScroll}>
-				<ul style={{ height: innerHeight }} >
-					{
-						items.map((item, index) => <li
-							style={{ height: itemHeight, top: (startIndex + index) * itemHeight, }}
-							key={props.keyExtractor(item)}
-							datavalue={startIndex + index}
-							onClick={onClick}
-						>
-							<div className="li-inner">{props.itemRender(item)}</div></li>)
-					}
-
-				</ul>
-			</div>}
+				startIndex={startIndex}
+				keyExtractor={props.keyExtractor}
+				itemRender={props.itemRender}
+				itemHeight={itemHeight}
+			/>
 			{renderTest && <li ref={testDivRef} className="test-height" key="hidden">{props.itemRender(items[0])}</li>}
 		</div>
 	);
@@ -117,6 +112,7 @@ AsyncDataChooser.propTypes = {
 	label: PropTypes.string,
 	style: PropTypes.object,
 	onChange: PropTypes.func,
-	className: PropTypes.string
+	className: PropTypes.string,
+	keepScrollPosition: PropTypes.bool,
 }
 export default AsyncDataChooser;

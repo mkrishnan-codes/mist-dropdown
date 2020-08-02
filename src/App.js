@@ -19,7 +19,7 @@ function App() {
           label={label}
           onSelect={item => setLabel(`${item.code} (${item.city})`)}
         />
-        <input />
+        <input value={label}/>
 
       </div>
     </div>
