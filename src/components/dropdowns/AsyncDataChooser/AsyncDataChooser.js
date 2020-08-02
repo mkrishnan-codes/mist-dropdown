@@ -14,6 +14,7 @@ import './style.scss';
 const AsyncDataChooser = (props) => {
 	let testDivRef = useRef(null);
 	let containerRef = useRef(null);
+	let ulContainerRef = useRef(null);
 	const [show, setShow] = useState(false);
 	const [hieghtCalculated, setHieghtCalculated] = useState(false);
 	const [data, setData] = useState([]);
@@ -42,7 +43,8 @@ const AsyncDataChooser = (props) => {
 	}
 	const renderTest = items.length > 0;
 	useLayoutEffect(() => {
-		// const rect = testDivRef.getBoundingClientRect();
+		// const rect = testDivRef.current && testDivRef.current.getBoundingClientRect();
+		// console.log(rect, 'RECT');
 		if (!hieghtCalculated && testDivRef.current) {
 			const height = testDivRef.current.clientHeight
 			setItemHeight(height)
@@ -67,6 +69,7 @@ const AsyncDataChooser = (props) => {
 			props.onSelect(data[e.currentTarget.getAttribute('datavalue')])
 		}
 	})
+	
 	return (
 		<div
 			style={props.style}
@@ -84,6 +87,7 @@ const AsyncDataChooser = (props) => {
 			{show && <div
 				className="dropdown"
 				style={{ maxHeight: 500 }}
+				ref={ulContainerRef}
 				onScroll={onScroll}>
 				<ul style={{ height: innerHeight }} >
 					{

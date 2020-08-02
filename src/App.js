@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import AirportChooser from './components/dropdowns/AsyncDataChooser';
+import AirportChooser from './components/dropdowns/AsyncDataChooser/AsyncDataChooser';
 import Airport from './components/renderers/Airport';
 const getData = async () => {
   const airports = await import('./configs/airports.js');
