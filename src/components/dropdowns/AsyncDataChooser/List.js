@@ -17,6 +17,7 @@ const List = forwardRef((props, ref) => {
 			className="dropdown"
 			style={{ maxHeight: 500 }}
 			ref={ref}
+			id="async-dropdown-list"
 			onScroll={onScroll}>
 			<ul style={{ height: props.innerHeight }} >
 				{

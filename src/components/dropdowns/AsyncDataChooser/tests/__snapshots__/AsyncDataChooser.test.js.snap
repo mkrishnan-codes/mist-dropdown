@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test 1`] = `
+<div
+  className="ac-dropdown airport-chooser"
+>
+  <div
+    aria-label="Choose airport"
+    className="dropdown-button"
+    onClick={[Function]}
+    role="button"
+    tabIndex={0}
+  >
+    <div
+      className="truncated"
+    >
+      Choose airport
+    </div>
+    <div
+      className="arrow up"
+    />
+  </div>
+</div>
+`;
