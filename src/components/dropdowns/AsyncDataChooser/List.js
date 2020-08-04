@@ -1,6 +1,8 @@
-import React, { forwardRef, useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 
-const List = forwardRef((props, ref) => {
+const List = (props) => {
+	const ref = useRef(null);
 	const [pos, setPos] = useState(0);
 	useEffect(() => {
 		if (props.show && pos > 0 && ref.current) {
@@ -13,6 +15,7 @@ const List = forwardRef((props, ref) => {
 		props.onScroll(e);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+	console.log(props.showFilter, 'Show');
 	return props.show && (
 		<div className={`dropdown-container ${props.showFilter ? `has-filter` : ``}`}>
 			{props.showFilter && <div
@@ -23,7 +26,7 @@ const List = forwardRef((props, ref) => {
 			}
 			<div
 				className="dropdown"
-				style={{ maxHeight: 500 }}
+				style={{ maxHeight: props.containerHeight }}
 				ref={ref}
 				id="async-dropdown-list"
 				onScroll={onScroll}>
@@ -45,6 +48,21 @@ const List = forwardRef((props, ref) => {
 			</div>
 		</div>
 	);
-})
+}
+List.propTypes = {
+	show: PropTypes.bool.isRequired,
+	containerHeight: PropTypes.number,
+	showFilter: PropTypes.bool,
+	filterValue: PropTypes.string,
+	onFilterValueChange: PropTypes.func,
+	items: PropTypes.array.isRequired,
+	innerHeight: PropTypes.number,
+	startIndex: PropTypes.number,
+	onScroll: PropTypes.func,
+	onClick: PropTypes.func,
+	keyExtractor: PropTypes.func,
+	itemRender: PropTypes.func,
+	itemHeight: PropTypes.number
+}
 
 export default List;

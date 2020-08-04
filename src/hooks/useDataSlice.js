@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useDataSlice = (getAsyncData, windowHeight, scrollTop, itemHeight, filter, filterFn, filterValue) => {
+export const useDataSlice = (getAsyncData, containerHeight, scrollTop, itemHeight, filter, filterFn, filterValue) => {
   const [trueData, setTrueData] = useState([]);
   useEffect(() => {
     const callApi = async () => {
@@ -15,7 +15,7 @@ export const useDataSlice = (getAsyncData, windowHeight, scrollTop, itemHeight, 
   const startIndex = Math.floor(scrollTop / itemHeight);
   const endIndex = Math.min(
     numItems - 1,
-    Math.floor((scrollTop + windowHeight) / itemHeight)
+    Math.floor((scrollTop + containerHeight) / itemHeight)
   );
   const items = [];
   for (let i = startIndex; i <= endIndex; i++) {
