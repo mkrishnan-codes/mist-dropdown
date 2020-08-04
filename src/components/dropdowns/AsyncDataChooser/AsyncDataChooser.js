@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './style.scss';
 import List from './List';
 import { useDataSlice } from '../../../hooks/useDataSlice';
+import Loader from '../../loaders/Loader';
 // const dataReducer = (state, action) => {
 // 	switch (action.type) {
 // 		case 'ADD':
@@ -35,7 +36,7 @@ const AsyncDataChooser = (props) => {
 			setItemHeight(height)
 			setHieghtCalculated(true)
 		}
- // eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [renderTest])
 	const handleClickOutside = (event) => {
 		if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -54,8 +55,8 @@ const AsyncDataChooser = (props) => {
 		if (props.onSelect) {
 			props.onSelect(data[e.currentTarget.getAttribute('datavalue')])
 		}
- // eslint-disable-next-line react-hooks/exhaustive-deps
-	},[data])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data])
 
 	return (
 		<div
@@ -71,6 +72,13 @@ const AsyncDataChooser = (props) => {
 				<div className="truncated">{props.label}</div>
 				<div className={`arrow ${show ? `down` : 'up'}`}></div>
 			</div>
+			{
+				(show && !items || items.length < 1) && (
+					<div className="loader-container">
+						<Loader />
+					</div>
+				)
+			}
 			<List show={show}
 				showFilter={props.filterFn !== null}
 				filterValue={filter}

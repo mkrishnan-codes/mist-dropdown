@@ -13,7 +13,6 @@ const List = forwardRef((props, ref) => {
 		props.onScroll(e);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
 	return props.show && (
 		<div className={`dropdown-container ${props.showFilter ? `has-filter` : ``}`}>
 			{props.showFilter && <div
