@@ -8,6 +8,47 @@
     padding: 10px;
     background-color: #ffffff;
 
+    .dropdown-container {
+        position: absolute;
+        margin: 1px;
+        top: 100%;
+        width: 100%;
+        left: 0px;
+
+        box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+
+        border: 1px solid #d2d2d7;
+        border-radius: 4px;
+        background-color: #ffffff;
+
+        height: 500px;
+
+        &.has-filter {
+            height: 550px;
+
+            .dropdown {
+                top: 50px;
+            }
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            padding: 10px;
+
+            .search-input {
+                width: 100%;
+                border: 1px solid #d2d2d7;
+                padding: 5px;
+                &:focus{
+                    outline: none;
+                }
+            }
+        }
+    }
+
     .test-height {
         background: red;
         margin: 0px;
@@ -59,14 +100,10 @@
     .dropdown {
         position: absolute;
         left: 0;
-        top: 100%;
+        top: 0;
 
-        border: 1px solid #d2d2d7;
-        border-radius: 4px;
         padding: 0;
         margin: 2px 0 0 0;
-        box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
-        background-color: #ffffff;
         overflow-y: scroll;
         width: 100%;
 

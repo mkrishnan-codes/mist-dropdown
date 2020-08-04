@@ -2,6 +2,7 @@ import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from
 import PropTypes from 'prop-types';
 import './style.scss';
 import List from './List';
+import { useDataSlice } from '../../../hooks/useDataSlice';
 // const dataReducer = (state, action) => {
 // 	switch (action.type) {
 // 		case 'ADD':
@@ -18,30 +19,13 @@ const AsyncDataChooser = (props) => {
 	let ulContainerRef = useRef(null);
 	const [show, setShow] = useState(false);
 	const [hieghtCalculated, setHieghtCalculated] = useState(false);
-	const [data, setData] = useState([]);
 	const [itemHeight, setItemHeight] = useState(100);
 	const [scrollTop, setScrollTop] = useState(0);
-	const numItems = data.length;
+	const [filter, setFilter] = useState('');
 	const windowHeight = 500;
-	useEffect(() => {
-		const callApi = async () => {
-			const dt = await props.getAsyncData();
-			setData(dt);
-		};
-		callApi();
-	}, []);
 
+	const [data, items, innerHeight, startIndex] = useDataSlice(props.getAsyncData, windowHeight, scrollTop, itemHeight, props.filterFn !== null, props.filterFn, filter)
 
-	const innerHeight = numItems * itemHeight;
-	const startIndex = Math.floor(scrollTop / itemHeight);
-	const endIndex = Math.min(
-		numItems - 1,
-		Math.floor((scrollTop + windowHeight) / itemHeight)
-	);
-	const items = [];
-	for (let i = startIndex; i <= endIndex; i++) {
-		items.push(data[i]);
-	}
 	const renderTest = items.length > 0;
 	useLayoutEffect(() => {
 		// const rect = testDivRef.current && testDivRef.current.getBoundingClientRect();
@@ -86,6 +70,9 @@ const AsyncDataChooser = (props) => {
 				<div className={`arrow ${show ? `down` : 'up'}`}></div>
 			</div>
 			<List show={show}
+				showFilter={props.filterFn !== null}
+				filterValue={filter}
+				onFilterValueChange={(e) => setFilter(e.target.value)}
 				items={items}
 				innerHeight={innerHeight}
 				startIndex={startIndex}
@@ -102,7 +89,8 @@ const AsyncDataChooser = (props) => {
 	);
 }
 AsyncDataChooser.defaultProps = {
-	label: 'Choose'
+	label: 'Choose',
+	filterFn: null,
 }
 AsyncDataChooser.propTypes = {
 	getAsyncData: PropTypes.func.isRequired,
@@ -114,5 +102,6 @@ AsyncDataChooser.propTypes = {
 	onChange: PropTypes.func,
 	className: PropTypes.string,
 	keepScrollPosition: PropTypes.bool,
+	filterFn: PropTypes.func
 }
 export default AsyncDataChooser;

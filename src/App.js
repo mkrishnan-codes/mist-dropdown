@@ -18,6 +18,7 @@ function App() {
           itemRender={item => <Airport name={item.name} city={item.city} country={item.country} code={item.code} />}
           label={label}
           onSelect={item => setLabel(`${item.code} (${item.city})`)}
+          filterFn={(item, filterValue) => item['city'].toLowerCase().search(filterValue.replace(/\\/g, "\\\\")) > -1}
         />
         <input value={label} />
 
