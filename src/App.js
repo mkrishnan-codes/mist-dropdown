@@ -2,18 +2,26 @@ import React, { useState } from 'react';
 import './App.scss';
 import AirportChooser from './components/dropdowns/AsyncDataChooser/AsyncDataChooser';
 import Airport from './components/renderers/Airport';
+import Airport2 from './components/renderers/Airport2'
 import Loader from './components/loaders/Loader'
 const getData = async () => {
   const airports = await import('./configs/airports.js');
   return airports['default'];
 };
+const getOtherData = async () => {
+  const airports = await import('./configs/words.js');
+  return airports['default'];
+};
+
 function App() {
   const initialLabel = 'Choose Airport'
   const [label, setLabel] = useState(initialLabel);
+  const [large, setLarge] = useState(false);
   return (
     <div className="App">
+      <h2>Airport choser</h2>
       <div className="airport-container">
-        <AirportChooser
+        {!large ? <AirportChooser
           className="airport-chooser"
           getAsyncData={getData}
           keyExtractor={item => item.code}
@@ -23,7 +31,30 @@ function App() {
           filterFn={(item, filterValue) => item['city'].toLowerCase().search(filterValue.replace(/\\/g, "\\\\")) > -1}
           loaderRenderFn={() => <Loader />}
         />
-        <input value={`${label !== initialLabel ? label : ``}`} />
+          :
+          <AirportChooser
+           
+            getAsyncData={getOtherData}
+            keyExtractor={item => item.id}
+            itemRender={item => item.words}
+            label="Random words selector"
+            onSelect={item => setLabel(`${item.words}`)}
+            filterFn={(item, filterValue) => item['words'].toLowerCase().search(filterValue.replace(/\\/g, "\\\\")) > -1}
+            loaderRenderFn={() => <Loader />}
+          />
+        }
+        <div className="sel-item">
+          <div>
+            Try large (3Mb) data
+          </div>
+          <input type="checkbox" value={large} onChange={(e) => setLarge(e.target.checked)} />
+        </div>
+        <div className="sel-item">
+          <div>
+            Selected Item
+          </div>
+          <input className="sel-inp" value={`${label !== initialLabel ? label : ``}`} />
+        </div>
 
       </div>
     </div>

@@ -1,7 +1,18 @@
 .airport-container {
   display: flex;
   flex-direction: column;
-  max-width: 200px;
+  justify-content: center;
+
+  .sel-item {
+    display: flex;
+    margin-top: 20px;
+
+    flex-direction: row;
+
+    .sel-inp {
+      margin-left: 20px;
+    }
+  }
 
   .airport-chooser {
     width: 500px;
@@ -10,4 +21,7 @@
 
 .App {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

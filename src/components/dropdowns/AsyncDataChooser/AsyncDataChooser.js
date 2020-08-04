@@ -22,7 +22,7 @@ const AsyncDataChooser = (props) => {
 
 	// Data slicing logic and absolute position calculations of list items by a custom hook
 
-	const [data, items, innerHeight, startIndex] = useDataSlice(props.getAsyncData, containerHeight, scrollTop, itemHeight, props.filterFn !== null, props.filterFn, filter)
+	const [data, items, loading, innerHeight, startIndex] = useDataSlice(props.getAsyncData, containerHeight, scrollTop, itemHeight, props.filterFn !== null, props.filterFn, filter)
 
 	// Logic to find the inner item hieght which can be dynamic
 	const renderTest = items.length > 0;
@@ -77,13 +77,13 @@ const AsyncDataChooser = (props) => {
 				<div className={`arrow ${show ? `down` : 'up'}`}></div>
 			</div>
 			{
-				(show && (items.length < 1)) && (
+				(show && loading) && (
 					<div className="loader-container">
 						{props.loaderRenderFn ? props.loaderRenderFn() : <div>Loading..</div>}
 					</div>
 				)
 			}
-			{(items.length > 0) && <List show={show}
+			{(!loading) && <List show={show}
 				containerHeight={containerHeight}
 				showFilter={props.filterFn !== null}
 				filterValue={filter}
@@ -128,6 +128,7 @@ AsyncDataChooser.propTypes = {
 	className: PropTypes.string,
 
 	// optional Filter function which can filter the data array supplied in to the dropdown list
+	// Function will return listitem, filterValue entered and should return a boolean value
 	filterFn: PropTypes.func,
 
 	// optional Loader function shown while loading async data, default will be 'Loading..' text
