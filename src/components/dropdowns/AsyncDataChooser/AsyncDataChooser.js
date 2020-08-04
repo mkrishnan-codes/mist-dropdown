@@ -73,7 +73,7 @@ const AsyncDataChooser = (props) => {
 				<div className={`arrow ${show ? `down` : 'up'}`}></div>
 			</div>
 			{
-				(show && !items || items.length < 1) && (
+				(show && (!items || items.length < 1)) && (
 					<div className="loader-container">
 						<Loader />
 					</div>
