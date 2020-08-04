@@ -4,18 +4,22 @@ import PropTypes from 'prop-types';
 const List = (props) => {
 	const ref = useRef(null);
 	const [pos, setPos] = useState(0);
+
+	// Since div is re rendered, it loose its scroll position.
+	//  For keeping the scroll position when user reopens the dropdown, uses a pos state .  
 	useEffect(() => {
 		if (props.show && pos > 0 && ref.current) {
 			ref.current.scrollTo(0, pos)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.show]);
+
+	// Scroll listener to keep scroll position
 	const onScroll = useCallback((e) => {
 		setPos(e.currentTarget.scrollTop)
 		props.onScroll(e);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-	console.log(props.showFilter, 'Show');
 	return props.show && (
 		<div className={`dropdown-container ${props.showFilter ? `has-filter` : ``}`}>
 			{props.showFilter && <div

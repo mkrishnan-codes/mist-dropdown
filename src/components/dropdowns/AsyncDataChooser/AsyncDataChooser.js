@@ -7,22 +7,27 @@ import Loader from '../../loaders/Loader';
 
 
 const AsyncDataChooser = (props) => {
+	// ref to test dynamic height of content
 	let testDivRef = useRef(null);
+	// ref to container to identify click inside and outside
 	let containerRef = useRef(null);
-	let ulContainerRef = useRef(null);
+	// States
 	const [show, setShow] = useState(false);
 	const [hieghtCalculated, setHieghtCalculated] = useState(false);
 	const [itemHeight, setItemHeight] = useState(100);
 	const [scrollTop, setScrollTop] = useState(0);
 	const [filter, setFilter] = useState('');
-	const windowHeight = 500;
+	// Container height to manage number of items to display
+	const containerHeight = 500;
 
-	const [data, items, innerHeight, startIndex] = useDataSlice(props.getAsyncData, windowHeight, scrollTop, itemHeight, props.filterFn !== null, props.filterFn, filter)
 
+	// Data slicing logic and absolute position calculations of list items by a custom hook
+
+	const [data, items, innerHeight, startIndex] = useDataSlice(props.getAsyncData, containerHeight, scrollTop, itemHeight, props.filterFn !== null, props.filterFn, filter)
+
+	// Logic to find the inner item hieght which can be dynamic
 	const renderTest = items.length > 0;
 	useLayoutEffect(() => {
-		// const rect = testDivRef.current && testDivRef.current.getBoundingClientRect();
-		// console.log(rect, 'RECT');
 		if (!hieghtCalculated && testDivRef.current) {
 			const height = testDivRef.current.clientHeight
 			setItemHeight(height)
@@ -30,18 +35,27 @@ const AsyncDataChooser = (props) => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [renderTest])
-	const handleClickOutside = (event) => {
-		if (containerRef.current && !containerRef.current.contains(event.target)) {
+
+	// Close if click outside after checking container target
+	const handleClickOutside = useCallback((e) => {
+		if (containerRef.current && !containerRef.current.contains(e.target)) {
 			setShow(false)
 		}
-	}
+	}, [containerRef])
+
+
 	useEffect(() => {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => {
+			// Cleanup event listener
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
-	}, []);
-	const onScroll = e => setScrollTop(e.currentTarget.scrollTop);
+	}, [handleClickOutside]);
+
+	// change top position of all list item based on scroll
+	const onScroll = useCallback(e => setScrollTop(e.currentTarget.scrollTop), []);
+
+	// Click listener to set selected item
 	const onClick = useCallback((e) => {
 		setShow(false);
 		if (props.onSelect) {
@@ -49,7 +63,6 @@ const AsyncDataChooser = (props) => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data])
-
 	return (
 		<div
 			style={props.style}
@@ -65,13 +78,14 @@ const AsyncDataChooser = (props) => {
 				<div className={`arrow ${show ? `down` : 'up'}`}></div>
 			</div>
 			{
-				(show && (!items || items.length < 1)) && (
+				(show && (items.length < 1)) && (
 					<div className="loader-container">
 						<Loader />
 					</div>
 				)
 			}
-			<List show={show}
+			{(items.length > 0) && <List show={show}
+				containerHeight={containerHeight}
 				showFilter={props.filterFn !== null}
 				filterValue={filter}
 				onFilterValueChange={(e) => setFilter(e.target.value)}
@@ -80,11 +94,10 @@ const AsyncDataChooser = (props) => {
 				startIndex={startIndex}
 				onScroll={onScroll}
 				onClick={onClick}
-				ref={ulContainerRef}
 				keyExtractor={props.keyExtractor}
 				itemRender={props.itemRender}
 				itemHeight={itemHeight}
-			/>
+			/>}
 			{renderTest && <li ref={testDivRef} className="test-height" key="hidden">{props.itemRender(items[0])}</li>}
 		</div>
 	);
