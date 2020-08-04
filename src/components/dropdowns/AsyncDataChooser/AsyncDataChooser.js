@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './style.scss';
 import List from './List';
 import { useDataSlice } from '../../../hooks/useDataSlice';
-import Loader from '../../loaders/Loader';
 
 
 const AsyncDataChooser = (props) => {
@@ -80,7 +79,7 @@ const AsyncDataChooser = (props) => {
 			{
 				(show && (items.length < 1)) && (
 					<div className="loader-container">
-						<Loader />
+						{props.loaderRenderFn ? props.loaderRenderFn() : <div>Loading..</div>}
 					</div>
 				)
 			}
@@ -129,6 +128,9 @@ AsyncDataChooser.propTypes = {
 	className: PropTypes.string,
 
 	// optional Filter function which can filter the data array supplied in to the dropdown list
-	filterFn: PropTypes.func
+	filterFn: PropTypes.func,
+
+	// optional Loader function shown while loading async data, default will be 'Loading..' text
+	loaderRenderFn: PropTypes.func
 }
 export default AsyncDataChooser;
