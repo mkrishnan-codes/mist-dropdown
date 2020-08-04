@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.scss';
 import AirportChooser from './components/dropdowns/AsyncDataChooser/AsyncDataChooser';
 import Airport from './components/renderers/Airport';
-import Airport2 from './components/renderers/Airport2'
+// import Airport2 from './components/renderers/Airport2'
 import Loader from './components/loaders/Loader'
 const getData = async () => {
   const airports = await import('./configs/airports.js');
