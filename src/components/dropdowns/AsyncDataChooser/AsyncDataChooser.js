@@ -35,6 +35,7 @@ const AsyncDataChooser = (props) => {
 			setItemHeight(height)
 			setHieghtCalculated(true)
 		}
+ // eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [renderTest])
 	const handleClickOutside = (event) => {
 		if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -53,7 +54,8 @@ const AsyncDataChooser = (props) => {
 		if (props.onSelect) {
 			props.onSelect(data[e.currentTarget.getAttribute('datavalue')])
 		}
-	})
+ // eslint-disable-next-line react-hooks/exhaustive-deps
+	},[])
 
 	return (
 		<div
@@ -79,7 +81,6 @@ const AsyncDataChooser = (props) => {
 				onScroll={onScroll}
 				onClick={onClick}
 				ref={ulContainerRef}
-				startIndex={startIndex}
 				keyExtractor={props.keyExtractor}
 				itemRender={props.itemRender}
 				itemHeight={itemHeight}

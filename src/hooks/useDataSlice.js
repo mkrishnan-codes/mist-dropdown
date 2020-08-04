@@ -8,7 +8,7 @@ export const useDataSlice = (getAsyncData, windowHeight, scrollTop, itemHeight, 
       setTrueData(dt);
     };
     callApi();
-  }, []);
+  }, [getAsyncData]);
   const data = filter ? trueData.filter((ap) => filterFn(ap, filterValue)) : null
   const numItems = filter ? data.length : trueData.length;
   const innerHeight = numItems * itemHeight;

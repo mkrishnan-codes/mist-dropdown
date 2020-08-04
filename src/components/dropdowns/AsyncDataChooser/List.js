@@ -6,11 +6,12 @@ const List = forwardRef((props, ref) => {
 		if (props.show && pos > 0 && ref.current) {
 			ref.current.scrollTo(0, pos)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.show]);
 	const onScroll = useCallback((e) => {
-
 		setPos(e.currentTarget.scrollTop)
 		props.onScroll(e);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return props.show && (
