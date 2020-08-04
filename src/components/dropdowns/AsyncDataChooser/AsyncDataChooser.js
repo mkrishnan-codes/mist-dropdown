@@ -107,7 +107,7 @@ AsyncDataChooser.propTypes = {
 	label: PropTypes.string,
 
 	// optional style attribute
-	style: ViewPropType,
+	style: PropTypes.object,
 
 	// optional on change function which will return selected object
 	onChange: PropTypes.func,
