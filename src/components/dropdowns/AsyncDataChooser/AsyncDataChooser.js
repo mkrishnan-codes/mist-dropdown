@@ -4,15 +4,7 @@ import './style.scss';
 import List from './List';
 import { useDataSlice } from '../../../hooks/useDataSlice';
 import Loader from '../../loaders/Loader';
-// const dataReducer = (state, action) => {
-// 	switch (action.type) {
-// 		case 'ADD':
-// 			{
-// 				return action.payload
-// 			}
-// 		default: return state;
-// 	}
-// }
+
 
 const AsyncDataChooser = (props) => {
 	let testDivRef = useRef(null);
@@ -102,15 +94,28 @@ AsyncDataChooser.defaultProps = {
 	filterFn: null,
 }
 AsyncDataChooser.propTypes = {
+	//  Required getAsyncData should be an async function to fetch data 
 	getAsyncData: PropTypes.func.isRequired,
+
+	// Required  itemRender fn to render the dropdown list item
 	itemRender: PropTypes.func.isRequired,
-	buttonRender: PropTypes.func,
+
+	// Required keyExtractor function for supply key to list items
 	keyExtractor: PropTypes.func.isRequired,
+
+	// optional button label, if not supplied default label 'Choose' will be shown
 	label: PropTypes.string,
-	style: PropTypes.object,
+
+	// optional style attribute
+	style: ViewPropType,
+
+	// optional on change function which will return selected object
 	onChange: PropTypes.func,
+
+	// optional className attribute passign into the base react component
 	className: PropTypes.string,
-	keepScrollPosition: PropTypes.bool,
+
+	// optional Filter function which can filter the data array supplied in to the dropdown list
 	filterFn: PropTypes.func
 }
 export default AsyncDataChooser;
