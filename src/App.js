@@ -9,7 +9,6 @@ const getData = async () => {
 function App() {
   const initialLabel = 'Choose Airport'
   const [label, setLabel] = useState(initialLabel);
-  const [enableFilter, setEnableFilter] = useState(false);
   return (
     <div className="App">
       <div className="airport-container">
@@ -20,7 +19,7 @@ function App() {
           itemRender={item => <Airport name={item.name} city={item.city} country={item.country} code={item.code} />}
           label={label}
           onSelect={item => setLabel(`${item.code} (${item.city})`)}
-          filterFn={enableFilter ? ((item, filterValue) => item['city'].toLowerCase().search(filterValue.replace(/\\/g, "\\\\")) > -1) : undefined}
+          filterFn={(item, filterValue) => item['city'].toLowerCase().search(filterValue.replace(/\\/g, "\\\\")) > -1}
         />
         <input value={`${label !== initialLabel ? label : ``}`} />
 
