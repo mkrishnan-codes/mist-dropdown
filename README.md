@@ -1,6 +1,7 @@
 
 
 
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a510137b-f762-41c7-af99-9f116dfd28d2/deploy-status)](https://app.netlify.com/sites/mist-dropdown/deploys)
 
   
@@ -17,22 +18,24 @@ Deployed version - https://mist-dropdown.netlify.app/
   
 ## Usage example 
 
-    import AirportChooser from './components/dropdowns/AsyncDataChooser/AsyncDataChooser';
-
-   
-
-    <AirportChooser
-    className="airport-chooser"
-    getAsyncData={() => Promise.resolve([{ name: 'Manu', code: '1222' }, { name: 'Ram', code: '1324' }])}
-    keyExtractor={item => item.code}
-    itemRender={item =>  item.name}
-    label={label}
-    onSelect={item => setLabel(`${item.code}`)}
-    filterFn={(item, filterValue) => item['name'].search(filterValue) > -1}
-    loaderRenderFn={() =>  <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Ajax-loader.gif"  />}
-    
-    />
-    
+        import React, { useState } from  'react';
+        import ReactDOM from  'react-dom';
+        import AsyncDataChooser from './components/dropdowns/AsyncDataChooser/AsyncDataChooser';
+        
+        const App = () => {
+         const [label, setLabel] = useState('Select user');
+            <AsyncDataChooser
+            getAsyncData={() => Promise.resolve([{ name: 'Manu', code: '1222' }, { name: 'Ram', code: '1324' }])}
+            keyExtractor={item => item.code}
+            itemRender={item =>  item.name}
+            label={label}
+            onSelect={item => setLabel(`${item.code}`)}
+            filterFn={(item, filterValue) => item['name'].search(filterValue) > -1}
+            loaderRenderFn={() =>  <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Ajax-loader.gif"  />}
+            
+            />
+          }
+    ReactDOM.render(<App/>,document.getElementById('root'));
 
 ## Component Props
 
