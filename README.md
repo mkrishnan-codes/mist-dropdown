@@ -32,31 +32,17 @@ Deployed version - https://mist-dropdown.netlify.app/
     />
     
 About Props
-
-    //  getAsyncData should be an async function to fetch data
-    getAsyncData: PropTypes.func.isRequired,
-    //  itemRender fn to render the dropdown list item
-    itemRender: PropTypes.func.isRequired,
-    // keyExtractor function for supply key to list items
-    keyExtractor: PropTypes.func.isRequired,
-    // optional button label, if not supplied default label 'Choose' will be shown
-    label: PropTypes.string,
-    // style attribute
-    style: PropTypes.object,
-    // on change function which will return selected object
-    onChange: PropTypes.func
-    //  className attribute passign into the base react 
-    component
-      className: PropTypes.string,
-    //  Filter function which can filter the data array supplied in to the dropdown list
-    // Function will return listitem, filterValue entered and should return a boolean value
-        filterFn: PropTypes.func,
-    //  Loader function shown while loading async data, default will be 'Loading..' text
-    loaderRenderFn: PropTypes.func
-
-  
-  
-  
+| attribute      | type     | required | default value | description                                                                   |
+|----------------|----------|:--------:|---------------|-------------------------------------------------------------------------------|
+| getAsyncData   | function |    yes   |               | should be an async function to fetch data                                     |
+| itemRender     | function |    yes   |               | to render the dropdown list item                                              |
+| keyExtractor   | function |    yes   |               | function for supply key to list items                                         |
+| label          | string   | optional | Choose        | Button label                                                                  |
+| style          | object   | optional | undefined     | inline styles to the container of dropdown                                    |
+| onChange       | function | optional | undefined     | return selected object on this callback                                       |
+| className      | string   | optional | undefined     | class attribute to the container of dropdown                                  |
+| filterFn       | function | optional | undefined     |  listitem, filterValue entered will be args and should return a boolean value |
+| loaderRenderFn | function | optional | Loading..     | Component shown while loading async data                                      |
   
   ## About the project
 
