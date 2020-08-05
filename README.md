@@ -33,7 +33,9 @@ Deployed version - https://mist-dropdown.netlify.app/
     
     />
     
-About Props
+
+## Component Props
+
 | attribute      | type     | required | default value | description                                                                   |
 |----------------|----------|:--------:|---------------|-------------------------------------------------------------------------------|
 | getAsyncData   | function |    yes   |               | should be an async function to fetch data                                     |
