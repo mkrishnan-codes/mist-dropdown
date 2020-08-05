@@ -1,5 +1,6 @@
 
 
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a510137b-f762-41c7-af99-9f116dfd28d2/deploy-status)](https://app.netlify.com/sites/mist-dropdown/deploys)
 
   
@@ -16,6 +17,7 @@ Deployed version - https://mist-dropdown.netlify.app/
   
 ## Usage example 
 
+    import AirportChooser from './components/dropdowns/AsyncDataChooser/AsyncDataChooser';
 
    
 
