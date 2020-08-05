@@ -1,4 +1,5 @@
 
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a510137b-f762-41c7-af99-9f116dfd28d2/deploy-status)](https://app.netlify.com/sites/mist-dropdown/deploys)
 
   
@@ -89,7 +90,9 @@ You will also see any lint errors in the console.
 
 ### `yarn test`
 
-  
+***Few unit tests are added with jest and enzyme***
+
+
 
 Launches the test runner in the interactive watch mode.<br  />
 
