@@ -9,7 +9,7 @@ const getData = async () => {
   return airports['default'];
 };
 const getOtherData = async () => {
-  const airports = await import('./configs/words.js');
+  const airports = await import('./configs/airports-2.js');
   return airports['default'];
 };
 
@@ -35,17 +35,17 @@ function App() {
           <AirportChooser
            
             getAsyncData={getOtherData}
-            keyExtractor={item => item.id}
-            itemRender={item => item.words}
-            label="Random words selector"
-            onSelect={item => setLabel(`${item.words}`)}
-            filterFn={(item, filterValue) => item['words'].toLowerCase().search(filterValue.replace(/\\/g, "\\\\")) > -1}
+            keyExtractor={item => item.code}
+            itemRender={item => `${item.name} - ${item.code}`}
+            label="Select airport"
+            onSelect={item => setLabel(`${item.name} - ${item.code}`)}
+            filterFn={(item, filterValue) => item['name'].toLowerCase().search(filterValue.replace(/\\/g, "\\\\")) > -1}
             loaderRenderFn={() => <Loader />}
           />
         }
         <div className="sel-item">
           <div>
-            Try large (3Mb) data
+            Try another data
           </div>
           <input type="checkbox" value={large} onChange={(e) => setLarge(e.target.checked)} />
         </div>
