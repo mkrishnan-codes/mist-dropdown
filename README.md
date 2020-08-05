@@ -51,7 +51,10 @@ Deployed version - https://mist-dropdown.netlify.app/
 | filterFn       | function | optional | undefined     |  listitem, filterValue entered will be args and should return a boolean value |
 | loaderRenderFn | function | optional | Loading..     | Component shown while loading async data                                      |
   
-  ## About the project
+  ## About performance
+Dropdown is tested with 50000 records (2.98 Mb json). Netlify is not allowing bigger files as it is taking more time to build. The file 'words.js' is removed because of that. But in version 0.5 (tag/0.5) this can be run locally and tested. This file is loaded on demand and not hardcoded in component.
+
+ ## About the project
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
