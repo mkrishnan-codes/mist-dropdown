@@ -36,7 +36,7 @@ function App() {
            
             getAsyncData={getOtherData}
             keyExtractor={item => item.code}
-            itemRender={item => `${item.name} - ${item.code}`}
+            itemRender={item => `${item.name}`}
             label="Select airport"
             onSelect={item => setLabel(`${item.name} - ${item.code}`)}
             filterFn={(item, filterValue) => item['name'].toLowerCase().search(filterValue.replace(/\\/g, "\\\\")) > -1}
