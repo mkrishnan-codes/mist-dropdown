@@ -26,7 +26,7 @@ Deployed version - https://mist-dropdown.netlify.app/
     label={label}
     onSelect={item => setLabel(`${item.code}`)}
     filterFn={(item, filterValue) => item['name'].search(filterValue) > -1}
-    loaderRenderFn={() =>  <Loader  />}
+    loaderRenderFn={() =>  <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Ajax-loader.gif"  />}
     
     />
     
